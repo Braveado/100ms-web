@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSearchParam } from "react-use";
 import { v4 } from "uuid";
-import { Box, Flex, Loading, styled } from "@100mslive/react-ui";
+import { Box, Flex, Loading, styled, Text } from "@100mslive/react-ui";
 import { Header } from "./Header";
 import { ErrorDialog } from "../primitives/DialogContent";
 import { useSetUiSettings, useTokenEndpoint } from "./AppData/useUISettings";
@@ -106,7 +106,12 @@ const PreviewScreen = React.memo(({ getUserToken }) => {
             />
           </>
         ) : (
-          <Loading size={100} />
+          <Flex justify="center" align="center" direction="column" css={{ size: "100%" }}>
+            <Loading size={100} />
+            <Text color="white" variant="sm">
+              If connecting is taking longer than expected, please try refreshing the page
+            </Text>
+          </Flex>
         )}
         <SidePane
           css={{
