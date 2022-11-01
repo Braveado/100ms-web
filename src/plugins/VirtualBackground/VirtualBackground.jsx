@@ -9,7 +9,6 @@ import {
 import { VirtualBackgroundIcon } from "@100mslive/react-icons";
 import { Tooltip } from "@100mslive/react-ui";
 import IconButton from "../../IconButton";
-import { getRandomVirtualBackground } from "./vbutils";
 
 export const VirtualBackground = () => {
   const pluginRef = useRef(null);
@@ -46,7 +45,7 @@ export const VirtualBackground = () => {
     try {
       await createPlugin();
       window.HMS.virtualBackground = pluginRef.current;
-      await pluginRef.current.setBackground(getRandomVirtualBackground());
+      await pluginRef.current.setBackground("blur");
       //Running VB on every alternate frame rate for optimized cpu usage
       await hmsActions.addPluginToVideoTrack(pluginRef.current, 15);
     } catch (err) {

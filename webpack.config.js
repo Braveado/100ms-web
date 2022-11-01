@@ -148,6 +148,7 @@ module.exports = {
     }),
   ],
   devServer: {
+    allowedHosts: [".simbiosis.team"],
     historyApiFallback: true,
     static: path.resolve(__dirname, "./public"),
     open: true,

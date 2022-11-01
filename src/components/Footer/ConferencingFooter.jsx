@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { MusicIcon } from "@100mslive/react-icons";
 import {
-  HMSPlaylistType,
   selectIsAllowedToPublish,
   useHMSStore,
   useScreenShare,
@@ -16,7 +15,6 @@ import IconButton from "../../IconButton";
 import PIPComponent from "../PIP/PIPComponent";
 import MetaActions from "../MetaActions";
 import { ChatToggle } from "./ChatToggle";
-import { Playlist } from "../../components/Playlist/Playlist";
 import { NoiseSuppression } from "../../plugins/NoiseSuppression";
 import { ToggleWhiteboard } from "../../plugins/whiteboard";
 import { VirtualBackground } from "../../plugins/VirtualBackground/VirtualBackground";
@@ -71,10 +69,8 @@ export const ConferencingFooter = () => {
   return (
     <AppFooter.Root>
       <AppFooter.Left>
-        <ScreenshareAudio />
-        <Playlist type={HMSPlaylistType.audio} />
-        <Playlist type={HMSPlaylistType.video} />
         {FeatureFlags.enableWhiteboard ? <ToggleWhiteboard /> : null}
+        {FeatureFlags.enableWhiteboard ? <LeftDivider /> : null}
         <VirtualBackground />
         <NoiseSuppression />
         {FeatureFlags.enableTranscription && <TranscriptionButton />}
@@ -108,5 +104,16 @@ export const ConferencingFooter = () => {
         <ChatToggle />
       </AppFooter.Right>
     </AppFooter.Root>
+  );
+};
+
+const LeftDivider = () => {
+  const allowedToPublish = useHMSStore(selectIsAllowedToPublish);
+  return (
+    <>
+      {allowedToPublish.screen || FeatureFlags.enableWhiteboard ? (
+        <VerticalDivider space={4} />
+      ) : null}
+    </>
   );
 };
