@@ -146,7 +146,7 @@ const convertPreviewError = error => {
     return {
       title: "Error fetching token",
       body: ErrorWithSupportLink(
-        "An error occurred while fetching the app token. Please look into logs for more details."
+        "An error occurred while fetching the app token. Please try refreshing the page or look into logs for more details."
       ),
     };
   }
@@ -158,21 +158,13 @@ const Link = styled("a", {
 
 export const ErrorWithSupportLink = errorMessage => (
   <div>
-    {errorMessage} If you think this is a mistake on our side, please create{" "}
+    {errorMessage}
+    <br /><br />
+    If you think this is a mistake on our side, please {" "}
     <Link
-      target="_blank"
-      href="https://github.com/100mslive/100ms-web/issues"
-      rel="noreferrer"
+      href="mailto:hello@simbiosis.team"
     >
-      an issue
-    </Link>{" "}
-    or reach out over{" "}
-    <Link
-      target="_blank"
-      href="https://discord.com/invite/kGdmszyzq2"
-      rel="noreferrer"
-    >
-      Discord
+      contact us
     </Link>
     .
   </div>
