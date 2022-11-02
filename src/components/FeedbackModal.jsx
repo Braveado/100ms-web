@@ -27,8 +27,8 @@ const FeedbackModal = ({ open, onOpenChange }) => {
         <Dialog.Overlay />
         <Dialog.Content
           css={{
-            w: "min(400px, 90%)",
-            height: "min(300px, 90%)",
+            w: "min(600px, 90%)",
+            height: "min(400px, 90%)",
             p: 0,
             r: "$4",
           }}
@@ -41,69 +41,74 @@ const FeedbackModal = ({ open, onOpenChange }) => {
             </IconButton>
           </Dialog.Close>
 
-          <Flex align="center" justify="center" direction="column" gap="4"
+          <Flex align="center" justify="center" direction="column"
             css={{ w: "100%", h: "100%" }}
           >
-                <Text variant="h5">Leave Feedback</Text>
-                <Flex justify="left" gap="4"
-                  css={{ mt: "$8" }}>
-                  <Button variant="" 
-                    css={{ p: "0", bg: "$transparent"}}                    
-                    onClick={() => {
-                      window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
-                    }} 
-                    onMouseEnter={() => setCount(1)}                    
-                    data-testid="feedback_btn_1"
-                  >
-                    {count >= 1 ? <AiFillStar style={iconStyle} />               
-                    : <AiOutlineStar style={iconStyle} />}
-                  </Button>
-                  <Button variant="" 
-                    css={{ p: "0", bg: "$transparent" }}                    
-                    onClick={() => {
-                      window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
-                    }} 
-                    onMouseEnter={() => setCount(2)}
-                    data-testid="feedback_btn_2"
-                  >
-                    {count >= 2 ? <AiFillStar style={iconStyle} />               
-                    : <AiOutlineStar style={iconStyle} />}             
-                  </Button> 
-                  <Button variant="" 
-                    css={{ p: "0", bg: "$transparent" }}                    
-                    onClick={() => {
-                      window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
-                    }}  
-                    onMouseEnter={() => setCount(3)}
-                    data-testid="feedback_btn_3"
-                  >
-                    {count >= 3 ? <AiFillStar style={iconStyle} />               
-                    : <AiOutlineStar style={iconStyle} />}              
-                  </Button> 
-                  <Button variant="" 
-                    css={{ p: "0", bg: "$transparent" }}                    
-                    onClick={() => {
-                      window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
-                    }} 
-                    onMouseEnter={() => setCount(4)}
-                    data-testid="feedback_btn_4"
-                  >
-                    {count >= 4 ? <AiFillStar style={iconStyle} />               
-                    : <AiOutlineStar style={iconStyle} />}              
-                  </Button> 
-                  <Button variant="" 
-                    css={{ p: "0", bg: "$transparent" }}                    
-                    onClick={() => {
-                      window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
-                    }} 
-                    onMouseEnter={() => setCount(5)}
-                    data-testid="feedback_btn_5"
-                  >
-                    {count >= 5 ? <AiFillStar style={iconStyle} />               
-                    : <AiOutlineStar style={iconStyle} />}              
-                  </Button>                               
-                </Flex>
-              </Flex>
+            <Text variant="h5"
+              css={{ px: "10%", textAlign: "center" }}
+            >
+              Please tell use about your interview experience with the candidate
+            </Text>
+            <Flex justify="left" gap="4"
+              css={{ mt: "$16" }}
+            >
+              <Button variant="" 
+                css={{ p: "0", bg: "$transparent"}}                    
+                onClick={() => {
+                  window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
+                }} 
+                onMouseEnter={() => setCount(1)}                    
+                data-testid="feedback_btn_1"
+              >
+                {count >= 1 ? <AiFillStar style={iconStyle} />               
+                : <AiOutlineStar style={iconStyle} />}
+              </Button>
+              <Button variant="" 
+                css={{ p: "0", bg: "$transparent" }}                    
+                onClick={() => {
+                  window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
+                }} 
+                onMouseEnter={() => setCount(2)}
+                data-testid="feedback_btn_2"
+              >
+                {count >= 2 ? <AiFillStar style={iconStyle} />               
+                : <AiOutlineStar style={iconStyle} />}             
+              </Button> 
+              <Button variant="" 
+                css={{ p: "0", bg: "$transparent" }}                    
+                onClick={() => {
+                  window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
+                }}  
+                onMouseEnter={() => setCount(3)}
+                data-testid="feedback_btn_3"
+              >
+                {count >= 3 ? <AiFillStar style={iconStyle} />               
+                : <AiOutlineStar style={iconStyle} />}              
+              </Button> 
+              <Button variant="" 
+                css={{ p: "0", bg: "$transparent" }}                    
+                onClick={() => {
+                  window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
+                }} 
+                onMouseEnter={() => setCount(4)}
+                data-testid="feedback_btn_4"
+              >
+                {count >= 4 ? <AiFillStar style={iconStyle} />               
+                : <AiOutlineStar style={iconStyle} />}              
+              </Button> 
+              <Button variant="" 
+                css={{ p: "0", bg: "$transparent" }}                    
+                onClick={() => {
+                  window.open(`https://my.simbiosis.team/interview-feedback/${roomId}?rating=${count}`, "_self");
+                }} 
+                onMouseEnter={() => setCount(5)}
+                data-testid="feedback_btn_5"
+              >
+                {count >= 5 ? <AiFillStar style={iconStyle} />               
+                : <AiOutlineStar style={iconStyle} />}              
+              </Button>                               
+            </Flex>
+          </Flex>
 
         </Dialog.Content>
       </Dialog.Portal>
