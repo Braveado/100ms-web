@@ -45,9 +45,14 @@ const FeedbackModal = ({ open, onOpenChange }) => {
             css={{ w: "100%", h: "100%" }}
           >
             <Text variant="h5"
-              css={{ px: "10%", textAlign: "center" }}
+              css={{ px: "5%", textAlign: "center" }}
             >
-              Please tell use about your interview experience with the candidate
+              Thanks for taking the time for this interview.
+            </Text>
+            <Text variant="h5"
+              css={{ px: "5%", textAlign: "center" }}
+            >
+              Overall, how would you rate the candidate?
             </Text>
             <Flex justify="left" gap="4"
               css={{ mt: "$16" }}
