@@ -117,13 +117,13 @@ const Tile = ({ peerId, trackId, width, height, visible = true }) => {
               <MicOffIcon />
             </StyledVideoTile.AudioIndicator>
           ) : null}
-          {isMouseHovered && !isHeadless ? (
+          {/* {isMouseHovered && !isHeadless ? (
             <TileMenu
               peerID={peerId}
               audioTrackID={audioTrack?.id}
               videoTrackID={track?.id}
             />
-          ) : null}
+          ) : null} */}
           <PeerMetadata peerId={peerId} />
           <TileConnection
             hideLabel={hideLabel}

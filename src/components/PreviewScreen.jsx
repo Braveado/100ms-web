@@ -18,6 +18,7 @@ import {
   QUERY_PARAM_SKIP_PREVIEW_HEADFUL,
   UI_SETTINGS,
 } from "../common/constants";
+//import { ScreeningContext } from '../context/ScreeningContext';
 
 /**
  * query params exposed -
@@ -51,6 +52,7 @@ const PreviewScreen = React.memo(({ getUserToken }) => {
     useSearchParam(QUERY_PARAM_NAME) || (skipPreview ? "Beam" : "");
   const previewAsRole = useSearchParam(QUERY_PARAM_PREVIEW_AS_ROLE);
   let authToken = useSearchParam(QUERY_PARAM_AUTH_TOKEN);
+  //const { screeningData } = React.useContext(ScreeningContext);
 
   useEffect(() => {
     if (authToken) {
@@ -86,12 +88,12 @@ const PreviewScreen = React.memo(({ getUserToken }) => {
   }
   return (
     <Flex direction="column" css={{ size: "100%" }}>
-      <Box
+      {/* <Box
         css={{ h: "$18", "@md": { h: "$17", flexShrink: 0 } }}
         data-testid="header"
       >
         <Header isPreview={true} />
-      </Box>
+      </Box> */}
       <Flex
         css={{ flex: "1 1 0", position: "relative", overflowY: "auto" }}
         justify="center"
@@ -101,6 +103,7 @@ const PreviewScreen = React.memo(({ getUserToken }) => {
           <>
             <PreviewContainer
               initialName={initialName}
+              //initialName={screeningData.developerName}
               skipPreview={skipPreview}
               env={env}
               onJoin={onJoin}

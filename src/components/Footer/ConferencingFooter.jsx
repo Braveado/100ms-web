@@ -71,7 +71,7 @@ export const ConferencingFooter = () => {
   return (
     <AppFooter.Root>
       <AppFooter.Left>
-        <ScreenshareAudio />
+        {/* <ScreenshareAudio />
         <Playlist type={HMSPlaylistType.audio} />
         <Playlist type={HMSPlaylistType.video} />
         {FeatureFlags.enableWhiteboard ? <ToggleWhiteboard /> : null}
@@ -88,13 +88,14 @@ export const ConferencingFooter = () => {
           }}
         >
           <MetaActions isMobile />
-        </Flex>
+        </Flex> */}
       </AppFooter.Left>
       <AppFooter.Center>
         <AudioVideoToggle />
-        <ScreenshareToggle />
+        <VirtualBackground />
+        <ScreenshareToggle />        
         <PIP />
-        <MoreSettings />
+        {/* <MoreSettings /> */}
         <LeaveRoom />
         <Flex
           align="center"
@@ -104,8 +105,8 @@ export const ConferencingFooter = () => {
         </Flex>
       </AppFooter.Center>
       <AppFooter.Right>
-        <MetaActions />
-        <ChatToggle />
+        {/* <MetaActions />
+        <ChatToggle /> */}
       </AppFooter.Right>
     </AppFooter.Root>
   );

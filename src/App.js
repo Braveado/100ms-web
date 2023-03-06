@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -22,6 +22,7 @@ import { KeyboardHandler } from "./components/Input/KeyboardInputManager";
 import { Notifications } from "./components/Notifications";
 import PostLeave from "./components/PostLeave";
 import { ToastContainer } from "./components/Toast/ToastContainer";
+import { ScreeningContext } from "./context/ScreeningContext";
 import { hmsActions, hmsNotifications, hmsStats, hmsStore } from "./hms.js";
 import { Confetti } from "./plugins/confetti";
 import { RemoteStopScreenshare } from "./plugins/RemoteStopScreenshare";
@@ -256,30 +257,52 @@ function AppRoutes({ getUserToken, getDetails }) {
             <RouteList getUserToken={getUserToken} getDetails={getDetails} />
           }
         />
-        <Route
+        {/* <Route
           path="/streaming/*"
           element={
             <RouteList getUserToken={getUserToken} getDetails={getDetails} />
           }
-        />
+        /> */}
       </Routes>
     </Router>
   );
 }
 
 export default function App() {
+  const [screeningData, setScreeningData] = useState({
+    id: "screening-data",
+    developerName: "Default",
+    questionIndex: 0,
+    questionArray: ["This is the default question?"],
+  });
+  const value = { screeningData, setScreeningData };
+
+  useEffect(() => {
+    window.addEventListener("DOMContentLoaded", function () {
+      window.parent.postMessage({ id: "screening-data-ready" }, "*");
+    });
+
+    window.addEventListener("message", function (event) {
+      if (event.data.id === "screening-data") {
+        setScreeningData(event.data);
+      }
+    });
+  }, []);
+
   return (
-    <EdtechComponent
-      themeConfig={{
-        aspectRatio: process.env.REACT_APP_TILE_SHAPE,
-        theme: process.env.REACT_APP_THEME,
-        color: process.env.REACT_APP_COLOR,
-        logo: process.env.REACT_APP_LOGO,
-        font: process.env.REACT_APP_FONT,
-        headerPresent: process.env.REACT_APP_HEADER_PRESENT,
-        metadata: process.env.REACT_APP_DEFAULT_APP_DETAILS, // A stringified object in env
-      }}
-      getUserToken={defaultGetUserToken}
-    />
+    <ScreeningContext.Provider value={value}>
+      <EdtechComponent
+        themeConfig={{
+          aspectRatio: process.env.REACT_APP_TILE_SHAPE,
+          theme: process.env.REACT_APP_THEME,
+          color: process.env.REACT_APP_COLOR,
+          logo: process.env.REACT_APP_LOGO,
+          font: process.env.REACT_APP_FONT,
+          headerPresent: process.env.REACT_APP_HEADER_PRESENT,
+          metadata: process.env.REACT_APP_DEFAULT_APP_DETAILS, // A stringified object in env
+        }}
+        getUserToken={defaultGetUserToken}
+      />
+    </ScreeningContext.Provider>
   );
 }

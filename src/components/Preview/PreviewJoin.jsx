@@ -34,6 +34,7 @@ import {
   useUserPreferences,
 } from "../hooks/useUserPreferences";
 import { UI_SETTINGS } from "../../common/constants";
+import { ScreeningContext } from '../../context/ScreeningContext';
 
 const PreviewJoin = ({
   token,
@@ -47,7 +48,11 @@ const PreviewJoin = ({
     UserPreferencesKeys.PREVIEW,
     defaultPreviewPreference
   );
-  const [name, setName] = useState(initialName || previewPreference.name);
+  const { screeningData } = React.useContext(ScreeningContext);
+  const [name, setName] = useState(screeningData.developerName);// initialName || previewPreference.name);
+  /* useEffect(() => {
+    setName(screeningData.developerName);
+  }, [screeningData.developerName]) */
   const { isLocalAudioEnabled, isLocalVideoEnabled } = useAVToggle();
   const [previewError, setPreviewError] = useState(false);
   const { enableJoin, preview, join } = usePreviewJoin({
@@ -92,18 +97,20 @@ const PreviewJoin = ({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, skipPreview]);
+  }, [token, skipPreview]);  
   return (
     <Container>
       <Text variant="h4" css={{ wordBreak: "break-word", textAlign: "center" }}>
-        Get Started
+        {screeningData.questionIndex == 0 ? 'Get Started' : 'Keep Going'}
       </Text>
-      <Text
-        css={{ c: "$textMedEmp", my: "$6", textAlign: "center" }}
-        variant="body1"
-      >
-        Setup your audio and video before joining
-      </Text>
+      {screeningData.questionIndex == 0 ?
+        <Text
+          css={{ c: "$textMedEmp", my: "$6", textAlign: "center" }}
+          variant="body1"
+        >
+          Setup your audio and video before answering
+        </Text>
+      : null}      
       <Flex
         align="center"
         justify="center"
@@ -111,15 +118,22 @@ const PreviewJoin = ({
           "@sm": { width: "100%" },
           flexDirection: "column",
         }}
+        /* gap="4" */
       >
         <PreviewTile name={name} error={previewError} />
         <PreviewControls
           enableJoin={enableJoin}
           savePreferenceAndJoin={savePreferenceAndJoin}
         />
+        {/* <Text
+          css={{ c: "$textMedEmp", my: "$10", textAlign: "center" }}
+          variant="body1"
+        >
+          Question: {screeningData.questionArray[screeningData.questionIndex]}
+        </Text> */}
         <PreviewName
           name={name}
-          onChange={setName}
+          /* onChange={setName} */
           enableJoin={enableJoin}
           onJoin={savePreferenceAndJoin}
         />
@@ -189,7 +203,7 @@ const PreviewTile = ({ name, error }) => {
 const PreviewControls = () => {
   return (
     <Flex
-      justify="between"
+      justify="center"
       css={{
         width: "100%",
         mt: "$8",
@@ -199,7 +213,7 @@ const PreviewControls = () => {
         <AudioVideoToggle compact />
         <VirtualBackground />
       </Flex>
-      <PreviewSettings />
+      {/* <PreviewSettings /> */}
     </Flex>
   );
 };

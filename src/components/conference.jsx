@@ -57,11 +57,11 @@ const Conference = () => {
 
   return (
     <Flex css={{ size: "100%" }} direction="column">
-      {!isHeadless && (
+      {/* {!isHeadless && (
         <Box css={{ h: "$18", "@md": { h: "$17" } }} data-testid="header">
           <Header />
         </Box>
-      )}
+      )} */}
       <Box
         css={{
           w: "100%",

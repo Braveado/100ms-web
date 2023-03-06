@@ -21,7 +21,7 @@ export const MainGridView = () => {
   const peers = useHMSStore(selectPeers);
   const roles = useHMSStore(selectRolesMap);
   const localPeerId = useHMSStore(selectLocalPeerID);
-  const centerPeers = peers.filter(peer => centerRoles.includes(peer.roleName));
+  const centerPeers = peers;//.filter(peer => centerRoles.includes(peer.roleName));
   const sidebarPeers = peers.filter(peer =>
     sidepaneRoles.includes(peer.roleName)
   );
@@ -100,9 +100,9 @@ export const MainGridView = () => {
             hideSidePane={!showSidePane}
             totalPeers={peers.length}
           />
-          {showSidePane && (
+          {/* {showSidePane && (
             <GridSidePaneView peers={sidebarPeers} totalPeers={peers.length} />
-          )}
+          )} */}
         </>
       )}
     </Flex>

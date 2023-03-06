@@ -17,7 +17,7 @@ export const ConferencingHeader = ({ isPreview }) => {
         {!isPreview ? <SpeakerTag /> : null}
       </Flex>
 
-      <Flex
+      {/* <Flex
         align="center"
         css={{
           position: "absolute",
@@ -27,7 +27,7 @@ export const ConferencingHeader = ({ isPreview }) => {
       >
         <StreamActions />
         <ParticipantCount />
-      </Flex>
+      </Flex> */}
     </Flex>
   );
 };

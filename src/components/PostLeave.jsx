@@ -22,7 +22,7 @@ const PostLeave = () => {
   return (
     <Flex direction="column" css={{ size: "100%" }}>
       <Box css={{ h: "$18", "@md": { h: "$17" } }} data-testid="header">
-        <Header isPreview />
+        {/* <Header isPreview /> */}
       </Box>
       <Flex
         justify="center"
@@ -37,7 +37,8 @@ const PostLeave = () => {
           variant="h4"
           css={{ color: "$textHighEmp", fontWeight: "$semiBold", mt: "$12" }}
         >
-          You left the {getRoutePrefix() ? "stream" : "room"}
+          {/* You left the {getRoutePrefix() ? "stream" : "room"} */}
+          Thanks for your answers!
         </Text>
         <Text
           variant="body1"
@@ -54,9 +55,8 @@ const PostLeave = () => {
               , {previewPreference.name}
             </Box>
           )}
-          !
         </Text>
-        <Flex css={{ mt: "$14", gap: "$10", alignItems: "center" }}>
+        {/* <Flex css={{ mt: "$14", gap: "$10", alignItems: "center" }}>
           <Text
             variant="body1"
             css={{ color: "$textMedEmp", fontWeight: "$regular" }}
@@ -77,7 +77,7 @@ const PostLeave = () => {
               Rejoin
             </Text>
           </Button>
-        </Flex>
+        </Flex> */}
       </Flex>
     </Flex>
   );

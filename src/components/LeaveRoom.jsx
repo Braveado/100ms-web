@@ -31,6 +31,7 @@ import {
 } from "../primitives/DialogContent";
 import { useNavigation } from "./hooks/useNavigation";
 import { isStreamingKit } from "../common/utils";
+import { ScreeningContext } from '../context/ScreeningContext';
 
 export const LeaveRoom = () => {
   const navigate = useNavigation();
@@ -39,7 +40,8 @@ export const LeaveRoom = () => {
   const [lockRoom, setLockRoom] = useState(false);
   const isConnected = useHMSStore(selectIsConnectedToRoom);
   const permissions = useHMSStore(selectPermissions);
-  const hmsActions = useHMSActions();
+  const hmsActions = useHMSActions();  
+  const { screeningData, setScreeningData } = React.useContext(ScreeningContext);
 
   const redirectToLeavePage = () => {
     if (params.role) {
@@ -50,9 +52,32 @@ export const LeaveRoom = () => {
     ToastManager.clearAllToast();
   };
 
+  const redirectToPreviewPage = () => {
+    if (params.role) {
+      navigate("/preview/" + params.roomId + "/" + params.role);
+    } else {
+      navigate("/preview/" + params.roomId);
+    }
+    ToastManager.clearAllToast();
+  };
+
   const leaveRoom = () => {
     hmsActions.leave();
-    redirectToLeavePage();
+    if(screeningData.questionIndex + 1 >= screeningData.questionArray.length)
+      redirectToLeavePage();
+    else
+      redirectToPreviewPage();
+
+    setScreeningData({
+      ...screeningData,
+      questionIndex: screeningData.questionIndex + 1,
+    });
+
+    window.parent.postMessage({
+      id: "screening-data-answers",
+      questionsAnswered: (screeningData.questionIndex + 1),
+      questionsRemaining:  (screeningData.questionArray.length - (screeningData.questionIndex + 1)),
+    }, "*");
   };
 
   const endRoom = () => {
@@ -75,8 +100,8 @@ export const LeaveRoom = () => {
             data-testid="leave_room_btn"
             css={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
             onClick={leaveRoom}
-          >
-            <Tooltip title="Leave Room">
+          > {"Finish Answer"}
+            {/* <Tooltip title="Leave Room">
               {!isStreamKit ? (
                 <Box>
                   <HangUpIcon key="hangUp" />
@@ -94,7 +119,7 @@ export const LeaveRoom = () => {
                   </Text>
                 </Flex>
               )}
-            </Tooltip>
+            </Tooltip> */}
           </LeaveIconButton>
           <Dropdown.Root>
             <Dropdown.Trigger
@@ -163,7 +188,8 @@ export const LeaveRoom = () => {
           key="LeaveRoom"
           data-testid="leave_room_btn"
         >
-          <Tooltip title="Leave Room">
+          {"Finish Answer"}
+          {/* <Tooltip title="Leave Room">
             <Box>
               {isStreamKit ? (
                 <Box css={{ "@md": { transform: "rotate(180deg)" } }}>
@@ -173,7 +199,7 @@ export const LeaveRoom = () => {
                 <HangUpIcon key="hangUp" />
               )}
             </Box>
-          </Tooltip>
+          </Tooltip> */}
         </LeaveIconButton>
       )}
 

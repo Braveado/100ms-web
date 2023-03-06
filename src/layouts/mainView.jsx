@@ -8,7 +8,7 @@ import {
   useHMSActions,
   useHMSStore,
 } from "@100mslive/react-sdk";
-import { Flex } from "@100mslive/react-ui";
+import { Flex, Text } from "@100mslive/react-ui";
 import FullPageProgress from "../components/FullPageProgress";
 import EmbedView from "./EmbedView";
 import { MainGridView } from "./mainGridView";
@@ -28,6 +28,7 @@ import {
 import { useRefreshSessionMetadata } from "../components/hooks/useRefreshSessionMetadata";
 import { useBeamAutoLeave } from "../common/hooks";
 import { UI_MODE_ACTIVE_SPEAKER } from "../common/constants";
+import { ScreeningContext } from '../context/ScreeningContext';
 
 const WhiteboardView = React.lazy(() => import("./WhiteboardView"));
 const HLSView = React.lazy(() => import("./HLSView"));
@@ -74,6 +75,8 @@ export const ConferenceMainView = () => {
     return null;
   }
 
+  const { screeningData } = React.useContext(ScreeningContext);
+
   let ViewComponent;
   if (localPeerRole === hlsViewerRole) {
     ViewComponent = HLSView;
@@ -107,8 +110,15 @@ export const ConferenceMainView = () => {
           size: "100%",
           position: "relative",
         }}
-      >
+        direction="column"
+      >        
         <ViewComponent />
+        <Text
+          css={{ c: "$textMedEmp", my: "$6", textAlign: "center" }}
+          variant="body1"
+        >
+          Question: {screeningData.questionArray[screeningData.questionIndex]}
+        </Text>
         <SidePane />
       </Flex>
     </Suspense>
