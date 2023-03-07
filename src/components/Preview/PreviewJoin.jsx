@@ -207,6 +207,7 @@ const PreviewControls = () => {
       css={{
         width: "100%",
         mt: "$8",
+        mb: "$10",
       }}
     >
       <Flex css={{ gap: "$4" }}>

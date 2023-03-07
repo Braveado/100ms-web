@@ -29,9 +29,9 @@ const Form = styled("form", {
   /* width: "100%", */
   display: "flex",
   alignItems: "center",
-  /* gap: "$4",
+  gap: "$4",
   mt: "$10",
-  mb: "$10", */
+  mb: "$10",
 });
 
 export default PreviewName;
