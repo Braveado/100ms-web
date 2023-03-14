@@ -37,7 +37,7 @@ export const LeaveRoom = () => {
   const navigate = useNavigation();
   const params = useParams();
   const [showEndRoomModal, setShowEndRoomModal] = useState(false);
-  const [lockRoom, setLockRoom] = useState(false);
+  const [lockRoom, setLockRoom] = useState(true);
   const isConnected = useHMSStore(selectIsConnectedToRoom);
   const permissions = useHMSStore(selectPermissions);
   const hmsActions = useHMSActions();  
@@ -63,26 +63,29 @@ export const LeaveRoom = () => {
 
   const leaveRoom = () => {
     hmsActions.leave();
-    if(screeningData.questionIndex + 1 >= screeningData.questionArray.length)
-      redirectToLeavePage();
-    else
-      redirectToPreviewPage();
-
-    setScreeningData({
-      ...screeningData,
-      questionIndex: screeningData.questionIndex + 1,
-    });
-
-    window.parent.postMessage({
-      id: "screening-data-answers",
-      questionsAnswered: (screeningData.questionIndex + 1),
-      questionsRemaining:  (screeningData.questionArray.length - (screeningData.questionIndex + 1)),
-    }, "*");
+    redirectToLeavePage();
   };
 
   const endRoom = () => {
     hmsActions.endRoom(lockRoom, "End Room");
     redirectToLeavePage();
+  };
+
+  const continueRoom = () => {    
+    if(screeningData.questionIndex + 1 >= screeningData.questionArray.length)
+      endRoom();
+    else
+      leaveRoom();
+    
+    setScreeningData({
+      ...screeningData,
+      questionIndex: screeningData.questionIndex + 1,
+    });    
+    window.parent.postMessage({
+      id: "screening-data-answers",
+      questionsAnswered: (screeningData.questionIndex + 1),
+      questionsRemaining:  (screeningData.questionArray.length - (screeningData.questionIndex + 1)),
+    }, "*");
   };
 
   const isStreamKit = isStreamingKit();
@@ -92,7 +95,7 @@ export const LeaveRoom = () => {
 
   return (
     <Fragment>
-      {permissions.endRoom ? (
+      {/* {permissions.endRoom ? (
         <Flex>
           <LeaveIconButton
             variant="danger"
@@ -100,8 +103,8 @@ export const LeaveRoom = () => {
             data-testid="leave_room_btn"
             css={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
             onClick={leaveRoom}
-          > {"Finish Answer"}
-            {/* <Tooltip title="Leave Room">
+          >
+            <Tooltip title="Leave Room">
               {!isStreamKit ? (
                 <Box>
                   <HangUpIcon key="hangUp" />
@@ -119,7 +122,7 @@ export const LeaveRoom = () => {
                   </Text>
                 </Flex>
               )}
-            </Tooltip> */}
+            </Tooltip>
           </LeaveIconButton>
           <Dropdown.Root>
             <Dropdown.Trigger
@@ -181,9 +184,9 @@ export const LeaveRoom = () => {
             </Dropdown.Content>
           </Dropdown.Root>
         </Flex>
-      ) : (
+      ) : ( */}
         <LeaveIconButton
-          onClick={leaveRoom}
+          onClick={continueRoom}
           variant="danger"
           key="LeaveRoom"
           data-testid="leave_room_btn"
@@ -201,9 +204,9 @@ export const LeaveRoom = () => {
             </Box>
           </Tooltip> */}
         </LeaveIconButton>
-      )}
+      {/* )} */}
 
-      <Dialog.Root
+      {/* <Dialog.Root
         open={showEndRoomModal}
         onOpenChange={value => {
           if (!value) {
@@ -229,7 +232,7 @@ export const LeaveRoom = () => {
             </Button>
           </DialogRow>
         </DialogContent>
-      </Dialog.Root>
+      </Dialog.Root> */}
     </Fragment>
   );
 };
